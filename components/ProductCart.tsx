@@ -1,0 +1,40 @@
+import React from "react";
+import Image from "next/image";
+import Ratings from "./shared/Ratings";
+import { useRouter } from "next/navigation";
+
+const ProductCart = ({ product }: { product: any }) => {
+  const router = useRouter();
+  return (
+    <div>
+      <div
+        className="cursor-pointer"
+        onClick={() => {
+          router.push(`/product/${product.id}`);
+        }}
+      >
+        <div className=" flex items-center justify-center bg-gray-100 h-[250px] rounded-md overflow-hidden">
+          <Image
+            className="mix-blend-multiply p-8"
+            src={product.image}
+            alt={product.title}
+            width={200}
+            height={200}
+          />
+        </div>
+        <h1 className="font-bold my-2">{`${product.title.substring(
+          0,
+          30
+        )}...`}</h1>
+        <p className="text-xs my-2">{`${product.description.substring(
+          0,
+          50
+        )}...`}</p>
+        <Ratings ratings={product.rating} />
+        <p className="font-bold text-2xl my-2">{`$${product.price}`}</p>
+      </div>
+    </div>
+  );
+};
+
+export default ProductCart;
