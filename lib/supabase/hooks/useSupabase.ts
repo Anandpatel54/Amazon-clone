@@ -9,7 +9,7 @@ export const useSupabase = () => {
     let { data, error } = await supabase.from("product").select("*");
     if (data) {
       setProducts(data);
-      console.log(data);
+     // console.log(data);
     }
     if (error) {
       console.log(error);
@@ -24,7 +24,7 @@ export const useSupabase = () => {
       ); // cloth
     if (data) {
       setFilterData(data);
-      console.log(data);
+     // console.log(data);
     }
     if (error) {
       console.log(error);
