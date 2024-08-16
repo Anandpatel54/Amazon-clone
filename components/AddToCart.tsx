@@ -1,11 +1,12 @@
-import React from "react";
 import prime from "../public/prime-logo.png";
 import Image from "next/image";
 import { useAppDispatch } from "@/lib/supabase/hooks/redux";
 import { addToCart } from "@/redux/cartSlice";
+import { useRouter } from 'next/navigation';
 
 const AddToCart = ({ product }: { product: any }) => {
   const dispatch = useAppDispatch();
+  const router = useRouter();
   return (
     <div className="border border-gray-300 rounded-md h-fit text-sm w-[90%]">
       <div className="p-4">
@@ -24,6 +25,7 @@ const AddToCart = ({ product }: { product: any }) => {
         <button
           onClick={() => {
             dispatch(addToCart(product));
+            router.push("/cart");
           }}
           className="bg-[#FFD814] w-full  rounded-full py-2 my-2"
         >
