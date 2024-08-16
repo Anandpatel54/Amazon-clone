@@ -1,11 +1,17 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { useAppSelector } from "@/lib/supabase/hooks/redux";
-import { getCart } from "@/redux/cartSlice";
+import { useAppDispatch, useAppSelector } from "@/lib/supabase/hooks/redux";
+import {
+  decrementQuantity,
+  getCart,
+  incrementQuantity,
+  removeFromTheCart,
+} from "@/redux/cartSlice";
 
 const ShoppingCart = () => {
   const cart = useAppSelector(getCart);
+  const dispatch = useAppDispatch();
   return (
     <div>
       <div className="flex justify-between items-center border-b border-gray-300 py-3">
@@ -30,13 +36,33 @@ const ShoppingCart = () => {
                 <p className="text-[#007600] my-2 text-xs font-bold">
                   In Stock
                 </p>
-                <h1 className="font-bold text-red-500 cursor-pointer">
+                <h1
+                  onClick={() => {
+                    dispatch(removeFromTheCart(product.id));
+                  }}
+                  className="font-bold text-red-500 cursor-pointer"
+                >
                   Remove
                 </h1>
                 <div className="flex items-center justify-between bg-gray-200 rounded-md px-5 py-1 my-4 w-fit text-xl font-medium">
-                  <div className="cursor-pointer mr-4">-</div>
-                  <div className="">0</div>
-                  <div className="cursor-pointer ml-4">+</div>
+                  <div
+                    onClick={() => {
+                      product.quantity > 1 &&
+                        dispatch(decrementQuantity(product));
+                    }}
+                    className="cursor-pointer mr-4"
+                  >
+                    -
+                  </div>
+                  <div className="">{product.quantity}</div>
+                  <div
+                    onClick={() => {
+                      dispatch(incrementQuantity(product));
+                    }}
+                    className="cursor-pointer ml-4"
+                  >
+                    +
+                  </div>
                 </div>
               </div>
             </div>
