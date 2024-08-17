@@ -1,8 +1,9 @@
 "use client";
-import React from "react";
+import React, { useReducer } from "react";
 import Image from "next/image";
 import { useAppDispatch } from "@/lib/supabase/hooks/redux";
 import {
+  clearAllCart,
   decrementQuantity,
   incrementQuantity,
   removeFromTheCart,
@@ -84,6 +85,14 @@ const ShoppingCart = ({
           </div>
         );
       })}
+      <h1
+        onClick={() => {
+          dispatch(clearAllCart());
+        }}
+        className="text-red-500 font-bold cursor-pointer"
+      >
+        CLEAR ALL
+      </h1>
       <SubTotal left={false} length={cart.length} totalPrice={totalPrice} />
     </div>
   );
