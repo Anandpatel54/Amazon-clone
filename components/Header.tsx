@@ -33,9 +33,9 @@ const Header = () => {
     <>
       <div className="bg-[#131921] text-white py-1">
         <div className="flex items-center justify-between w-[90%] mx-auto">
-          <div className="w-[10%] cursor-pointer hover:border border border-transparent hover:border-white p-1">
+          <Link href={"/"} className="w-[10%]">
             <Image src={amazonLogo} alt={"logo"} width={150} height={150} />
-          </div>
+          </Link>
           <div className="w-[55%] flex items-center">
             <input
               className="w-full p-2 rounded-l-md text-black outline-none"
@@ -60,7 +60,7 @@ const Header = () => {
               <p className="text-xs">Returns</p>
               <h1 className="font-medium text-sm">& Orders</h1>
             </div>
-            <div className="cursor-pointer  hover:border border border-transparent hover:border-white p-1">
+            <Link href={"/cart"} className="cursor-pointer  hover:border border border-transparent hover:border-white p-1">
               <p className="relative top-3 left-4">{cart.length}</p>
               <div className="flex">
                 <div>
@@ -68,7 +68,7 @@ const Header = () => {
                 </div>
                 <h1 className="mt-4">cart</h1>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
       </div>

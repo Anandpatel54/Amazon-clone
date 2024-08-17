@@ -1,19 +1,25 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { useAppDispatch, useAppSelector } from "@/lib/supabase/hooks/redux";
+import { useAppDispatch } from "@/lib/supabase/hooks/redux";
 import {
   decrementQuantity,
-  getCart,
   incrementQuantity,
   removeFromTheCart,
 } from "@/redux/cartSlice";
+import SubTotal from "./shared/SubTotal";
 
-const ShoppingCart = () => {
-  const cart = useAppSelector(getCart);
+const ShoppingCart = ({
+  cart,
+  totalPrice,
+}: {
+  cart: any;
+  totalPrice: number;
+}) => {
   const dispatch = useAppDispatch();
+
   return (
-    <div>
+    <div className="w-[70%]">
       <div className="flex justify-between items-center border-b border-gray-300 py-3">
         <h1 className="font-bold text-2xl">ShoppingCart</h1>
         <h1 className="font-medium">Price</h1>
@@ -21,7 +27,10 @@ const ShoppingCart = () => {
 
       {cart.map((product: any) => {
         return (
-          <div key={product.id} className="my-4 flex justify-between">
+          <div
+            key={product.id}
+            className="py-4 flex justify-between border-b border-gray-300"
+          >
             <div className="flex">
               <div>
                 <Image
@@ -75,6 +84,7 @@ const ShoppingCart = () => {
           </div>
         );
       })}
+      <SubTotal left={false} length={cart.length} totalPrice={totalPrice} />
     </div>
   );
 };
