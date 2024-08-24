@@ -60,7 +60,10 @@ const Header = () => {
               <p className="text-xs">Returns</p>
               <h1 className="font-medium text-sm">& Orders</h1>
             </div>
-            <Link href={"/cart"} className="cursor-pointer  hover:border border border-transparent hover:border-white p-1">
+            <Link
+              href={"/cart"}
+              className="cursor-pointer  hover:border border border-transparent hover:border-white p-1"
+            >
               <p className="relative top-3 left-4">{cart.length}</p>
               <div className="flex">
                 <div>
