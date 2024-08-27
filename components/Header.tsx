@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import amazonLogo from "../public/amazon-logo-2.webp";
 import { FiShoppingCart } from "react-icons/fi";
@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAppSelector } from "@/lib/supabase/hooks/redux";
 import { getCart } from "@/redux/cartSlice";
+import { supabase } from "@/lib/supabase/Products";
 
 const itemList = [
   "All",
@@ -24,11 +25,22 @@ const itemList = [
 ];
 const Header = () => {
   const [query, setQuery] = useState<string>("");
+  const [user, setUser] = useState<any>(null);
   const router = useRouter();
   const cart = useAppSelector(getCart);
   const searchHandler = () => {
     router.push(`/search/${query}`);
   };
+  useEffect(() => {
+    const getUserData = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      setUser(user);
+    };
+    getUserData();
+  }, []);
+  console.log(user);
   return (
     <>
       <div className="bg-[#131921] text-white py-1">
@@ -52,8 +64,15 @@ const Header = () => {
             </div>
           </div>
           <div className="flex items-center justify-around w-[25%]">
-            <div className="cursor-pointer  hover:border border border-transparent hover:border-white p-1">
-              <h1 className="text-xs">Hello, patel</h1>
+            <div
+              onClick={() => {
+                router.push("/signin");
+              }}
+              className="cursor-pointer  hover:border border border-transparent hover:border-white p-1"
+            >
+              <h1 className="text-xs hover:underline">{`${
+                user ? user?.identities[0]?.identity_data.full_name : "Signin"
+              }`}</h1>
               <h1 className="font-medium text-sm">Account & List</h1>
             </div>
             <div className="cursor-pointer   hover:border border border-transparent hover:border-white p-1">
@@ -90,7 +109,13 @@ const Header = () => {
           })}
         </div>
         <div className="mr-14">
-          <h1 className="text-[#FEBD69] font-bold cursor-pointer  hover:underline">
+          <h1
+            onClick={async () => {
+              const { error } = await supabase.auth.signOut();
+              router.push("/signin")
+            }}
+            className="text-[#FEBD69] font-bold cursor-pointer  hover:underline"
+          >
             Sign out
           </h1>
         </div>
