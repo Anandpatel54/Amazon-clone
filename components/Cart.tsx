@@ -4,6 +4,7 @@ import ShoppingCart from "./ShoppingCart";
 import ProccedToBuy from "./ProccedToBuy";
 import { useAppSelector } from "@/lib/supabase/hooks/redux";
 import { getCart } from "@/redux/cartSlice";
+import Footer from "./Footer";
 
 const Cart = () => {
   const cart = useAppSelector(getCart);
@@ -12,12 +13,15 @@ const Cart = () => {
     totalPrice += item.price * item.quantity;
   });
   return (
+    <>
     <div className="w-[80%] mx-auto mt-10">
       <div className="flex w-full justify-between">
         <ShoppingCart cart={cart} totalPrice={totalPrice} />
         <ProccedToBuy length={cart.length} totalPrice={totalPrice} />
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 

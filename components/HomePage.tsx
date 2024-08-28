@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import Image from "next/image";
 import { useSupabase } from "@/lib/supabase/hooks/useSupabase";
 import CategoryWiseProduct from "./shared/CategoryWiseProduct";
+import Footer from "./Footer";
 
 const HomePage = () => {
   const { getMensClothing, mensProduct, getWomensClothing, womensProduct } =
@@ -37,6 +38,7 @@ const HomePage = () => {
           </div>
         ))}
       </div>
+      <Footer />
     </div>
   );
 };
