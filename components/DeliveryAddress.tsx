@@ -11,7 +11,7 @@ const DeliveryAddress = () => {
       <div className="border-b border-gray-300 py-2">
         <div className="flex justify-between">
           <h1 className="font-bold text-lg">1. Delivery Address</h1>
-          <p className="text-sm">
+          <p className="text-sm ml-8">
             Anand patel <br /> Sai ram caloni <br /> BHOPAL, MADHYA PREDESH{" "}
             <br /> add delivery instructions
           </p>

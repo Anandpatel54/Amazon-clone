@@ -1,6 +1,34 @@
-import React from "react";
+import { useAppSelector } from "@/lib/supabase/hooks/redux";
+import { supabase } from "@/lib/supabase/Products";
+import { getCart } from "@/redux/cartSlice";
+import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISH_KEY!);
 
 const OrderSummery = () => {
+  const cart = useAppSelector(getCart);
+  const createStripeSession = async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    const stripe = await stripePromise;
+    //
+    const checkoutSession = await axios.post("/api/checkout-sessions", {
+      items: cart,
+      email: user?.email,
+    });
+
+    // redirect to checkout session
+    const result = await stripe?.redirectToCheckout({
+      sessionId: checkoutSession.data.id,
+    });
+
+    if (result?.error) {
+      console.log(result.error.message);
+    }
+  };
+
   return (
     <div className="border border-gray p-8 h-fit mt-5">
       <div>
@@ -27,7 +55,10 @@ const OrderSummery = () => {
             <h1>{"78766"}</h1>
           </div>
         </div>
-        <button className="bg-[#FFD814] w-full rounded-md px-4 py-1 text-md">
+        <button
+          onClick={createStripeSession}
+          className="bg-[#FFD814] w-full rounded-md px-4 py-1 text-md"
+        >
           Place Your Order Now
         </button>
       </div>
