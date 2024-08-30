@@ -112,7 +112,7 @@ const Header = () => {
           <h1
             onClick={async () => {
               const { error } = await supabase.auth.signOut();
-              router.push("/signin")
+              router.push("/signin");
             }}
             className="text-[#FEBD69] font-bold cursor-pointer  hover:underline"
           >
