@@ -11,7 +11,7 @@ const HomePage = () => {
   useEffect(() => {
     getMensClothing();
     getWomensClothing();
-  }, []);
+  }, [getMensClothing, getWomensClothing]);
   return (
     <div>
       <Image

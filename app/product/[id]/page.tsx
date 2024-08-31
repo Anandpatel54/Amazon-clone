@@ -2,14 +2,14 @@
 import SingleProduct from "@/components/SingleProduct";
 import { useSupabase } from "@/lib/supabase/hooks/useSupabase";
 import { useParams } from "next/navigation";
-import  { useEffect } from "react";
+import { useEffect } from "react";
 
-const page = () => {
+const ProductPage = () => {
   const { id } = useParams();
   const { singleProduct, getSingleProduct } = useSupabase();
   useEffect(() => {
     getSingleProduct(Number(id));
-  }, []);
+  }, [id, getSingleProduct]);
 
   return (
     <div>
@@ -18,4 +18,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default ProductPage;
