@@ -5,11 +5,19 @@ import amazonLogo from "../public/amazon-logo.png";
 import { FaLock } from "react-icons/fa";
 import DeliveryAddress from "./DeliveryAddress";
 import OrderSummery from "./OrderSummery";
+import { useAppSelector } from "@/lib/supabase/hooks/redux";
+import { getCart } from "@/redux/cartSlice";
 
 const Checkout = () => {
+  const cart = useAppSelector(getCart);
+  let totalPrice = 0;
+  cart.forEach((item: any) => {
+    totalPrice += item.price * item.quantity;
+  });
+
   return (
-    <div className="absolute top-0 w-full p-12 bg-white">
-      <div className="flex items-center justify-between w-[80%] mx-auto border-b border-gray-400 pb-5">
+    <div className="absolute top-0 w-full p-10  bg-white">
+      <div className=" flex w-[70%] mx-auto items-center border-b border-gray-400  pb-5 justify-between">
         <div>
           <Image
             src={amazonLogo}
@@ -25,9 +33,9 @@ const Checkout = () => {
           <FaLock size={"30px"} />
         </div>
       </div>
-      <div className="w-[80%] mx-auto flex justify-between">
+      <div className="flex justify-between w-[70%] mx-auto">
         <DeliveryAddress />
-        <OrderSummery />
+        <OrderSummery totalPrice={totalPrice} />
       </div>
     </div>
   );

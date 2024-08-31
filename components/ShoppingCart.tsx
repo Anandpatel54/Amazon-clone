@@ -10,13 +10,7 @@ import {
 } from "@/redux/cartSlice";
 import SubTotal from "./shared/SubTotal";
 
-const ShoppingCart = ({
-  cart,
-  totalPrice,
-}: {
-  cart: any;
-  totalPrice: number;
-}) => {
+const ShoppingCart = ({ cart, totalPrice, }: {cart: any; totalPrice: number }) => {
   const dispatch = useAppDispatch();
 
   return (
