@@ -13,6 +13,7 @@ const HomePage = () => {
     getWomensClothing();
   }, [getMensClothing, getWomensClothing]);
   return (
+    <>
     <div>
       <Image
         style={{
@@ -42,6 +43,8 @@ const HomePage = () => {
         })}
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 export default HomePage;
